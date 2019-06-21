@@ -3,52 +3,33 @@
   <div class="home">
     <Header></Header>
     <div class="home-container">
-      <div class="shopList">
-        <div class="proList">
-          <a class="proItem">
-            <img src="../img/home/shangchao.webp" alt="">
-            <p class="itemText">商超便利</p>
-          </a>
-          <a class="proItem">
-            <img src="../img/home/yiyao.webp" alt="">
-            <p class="itemText">医药健康</p>
-          </a>
-          <a class="proItem">
-            <img src="../img/home/xianhua.webp" alt="">
-            <p class="itemText">浪漫鲜花</p>
-          </a>
-          <a class="proItem">
-            <img src="../img/home/shengxian.webp" alt="">
-            <p class="itemText">厨房生鲜</p>
-          </a>
-          <a class="proItem">
-            <img src="../img/home/hanbao.webp" alt="">
-            <p class="itemText">快餐汉堡</p>
-          </a>
-        </div>
-        <div class="proList">
-          <a class="proItem">
-            <img src="../img/home/shuiguo.webp" alt="">
-            <p class="itemText">天天水果</p>
-          </a>
-          <a class="proItem">
-            <img src="../img/home/xiaochi.webp" alt="">
-            <p class="itemText">名品小吃</p>
-          </a>
-          <a class="proItem">
-            <img src="../img/home/baozi.webp" alt="">
-            <p class="itemText">包子馒头  </p>
-          </a>
-          <a class="proItem">
-            <img src="../img/home/zhaji.webp" alt="">
-            <p class="itemText">香辣炸鸡</p>
-          </a>
-          <a class="proItem">
-            <img src="../img/home/paotui.webp" alt="">
-            <p class="itemText">代买跑腿</p>
-          </a>
-        </div>
-      </div>
+      <mt-swipe :auto="0"  class="shopList">
+        <mt-swipe-item>
+        <!-- 第一页 -->
+          <div class="proList" >
+            <a class="proItem" v-for="item in list.list1" :key="item.id">
+              <img :src="'http://129.28.178.213:8002'+item.image_url" alt="">
+              <p class="itemText">{{item.title}}</p>
+            </a>
+          </div>
+          <div class="proList">
+            <a class="proItem" v-for="item in list.list2" :key="item.id">
+              <img :src="'http://129.28.178.213:8002'+item.image_url" alt="">
+              <p class="itemText">{{item.title}}</p>
+            </a>
+          </div>
+        </mt-swipe-item>
+        <!-- 第二页 -->
+        <mt-swipe-item>
+          <div class="proList">
+            <a class="proItem"  v-for="item in list.list3" :key="item.id">
+              <img :src="'http://129.28.178.213:8002'+item.image_url" alt="">
+              <p class="itemText">{{item.title}}</p>
+            </a>
+          </div>
+        </mt-swipe-item>
+
+      </mt-swipe>
 
       <div class="banner">
         <div class="bText">
@@ -84,12 +65,12 @@
             <span class="mui-icon-extra mui-icon-extra-filter"></span>
           </a>
         </div>
-        <NoResult v-if="this.$store.getters.isLoginning"></NoResult>
       </div>
-      
-
-      
     </div>
+    <!-- 没登录显示 -->
+    <NoResult v-if="this.$store.getters.isLoginning"></NoResult>
+    <!-- 登录显示商家 -->
+    <div v-if="!this.$store.getters.isLoginning"></div>
   </div>
 </template>
 
@@ -102,6 +83,46 @@ import NoResult from '../components/NoResult'
 
 export default {
   name: "home",
+  data(){
+    return{
+      list:{
+        lsit1:[],
+        list2:[],
+        list3:[]
+      },
+      isLogin:null
+    }
+  },
+  methods: {
+    
+  },
+  created(){
+    this.isLogin = this.$store.state.isLogin; //每次加载页面都讲状态赋值给变量,后面好监听
+    //加载页面时,获取商品分类
+    this.axios.get('v2/index_entry').then(res=>{
+      this.list.list1 = res.data.slice(0,5);
+      this.list.list2 = res.data.slice(5,10);
+      this.list.list3 = res.data.slice(10,15)
+      // console.log(this.list)
+    })
+  },
+ computed: {
+    f1(){
+          return this.isLogin
+    }
+  },
+  watch: {
+    f1(curVal, oldVal) {
+          //这里的curVal就是需要监听的值
+          // console.log(curVal,oldVal)
+          if(!curVal){
+            this.axios.get('https://elm.cangdu.org/shopping/restaurants?latitude=31.22967&longitude=121.4762').then(res=>{
+              console.log(res)
+            })
+          }
+
+    }
+ },
   components: {
     Header,
     Swiper,
@@ -122,6 +143,9 @@ export default {
     display: flex;
     justify-content: space-around;
     // height: 160px;
+  }
+   .home-container .mint-swipe{
+    height: 175px;
   }
   .proItem .itemText{
     font-size: 12px;

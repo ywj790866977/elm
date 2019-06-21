@@ -5,7 +5,7 @@ import About from './views/About.vue';
 import Find from './views/Find.vue';
 import Shop from './views/Shop.vue'
 import Login from './views/Login.vue'
-
+import ProList from './components/prolist.vue'
 
 Vue.use(Router);
 
@@ -16,7 +16,7 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: Home
+      component: ProList
     },
     {
       path: "/home",

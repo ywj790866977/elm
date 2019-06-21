@@ -76,13 +76,13 @@ export default {
           MessageBox.alert(res.data.message);
           this.$store.commit("isFalse")
           this.$store.commit("updateUsername",uname)
-          console.log(this.$store.state.username)
+          // console.log(this.$store.state.username)
           this.$router.go(-1);
         })
     }
   },
   created(){
-    console.log(this.$store.getters.isLoginning);
+    // console.log(this.$store.getters.isLoginning);
     this.axios.post('v1/captchas').then(res=>{
         if(res.status == 200){
           this.captchas = res.data.code;
