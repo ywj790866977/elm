@@ -1,11 +1,13 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
-import About from './views/About.vue';
-import Find from './views/Find.vue';
-import Shop from './views/Shop.vue'
-import Login from './views/Login.vue'
-import ProList from './components/prolist.vue'
+import About from "./views/About.vue";
+import Find from "./views/Find.vue";
+import Shop from "./views/Shop.vue";
+import Login from "./views/Login.vue";
+import ProList from "./components/ProList.vue";
+import Search from "./views/Search.vue";
+import Detail from "./views/Detail.vue";
 
 Vue.use(Router);
 
@@ -16,7 +18,7 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: ProList
+      component: Detail
     },
     {
       path: "/home",
@@ -40,9 +42,19 @@ export default new Router({
     },
     {
       path: "/login",
-      name: "shop",
+      name: "login",
       component: Login
     },
+    {
+      path: "/search",
+      name: "search",
+      component: Search
+    },
+    {
+      path: "/prolist",
+      name: "prolist",
+      component: ProList
+    }
     // {
     //   path: "/",
     //   name: "about",
@@ -52,5 +64,6 @@ export default new Router({
     //   component: () =>
     //     import(/* webpackChunkName: "about" */ "./views/About.vue")
     // }
-  ],linkActiveClass:"mui-active"
+  ],
+  linkActiveClass: "mui-active"
 });

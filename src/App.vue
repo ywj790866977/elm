@@ -6,12 +6,12 @@
 </template>
 
 <script>
-import Footer from './components/Footer'
+import Footer from "./components/Footer";
 export default {
-  components:{
+  components: {
     Footer
   }
-}
+};
 </script>
 <style lang="scss">
 #app {
@@ -21,5 +21,4 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
 </style>

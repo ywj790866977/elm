@@ -4,16 +4,30 @@
             <span class="mui-icon mui-icon-location dingwei">未知地址</span>
             <span class="mui-icon mui-icon-arrowdown dingwei"></span>
         </div>
-        <a href="" class="myInput">
+        <div @click="gotoSearch()" class="myInput">
             <span class="mui-icon mui-icon-search ">搜索商家、商品名称</span>
-        </a>
+        </div>
 
     </div>
 </template>
 
 <script>
 export default {
-    
+    data() {
+        return {
+            
+        }
+    },
+    methods: {
+        gotoSearch(){
+            console.log(this.$store.state.isLogin)
+            if(!this.$store.state.isLogin){
+                this.$router.push('/search')
+            }else{
+                this.$router.push('/login')
+            }
+        }
+    },
 }
 </script>
 
