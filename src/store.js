@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     isLogin: true,
     username: "",
-    myHistory: []
+    myHistory: [],
+    isGoods: true
   },
   mutations: {
     isTrue(state) {
@@ -26,6 +27,12 @@ export default new Vuex.Store({
     delHistory(state) {
       state.myHistory = [];
       console.log(state.myHistory);
+    },
+    goodIstrue(state) {
+      state.isGoods = true;
+    },
+    gootIsfalse(state) {
+      state.isGoods = false;
     }
   },
   getters: {

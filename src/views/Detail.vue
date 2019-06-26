@@ -2,7 +2,7 @@
   <div class="detail">
     <nav class="detali-header">
       <!-- <img src="../img/detail/background1.webp" alt> -->
-      <a class="mui-icon mui-icon-arrowleft"></a>
+      <a class="mui-icon mui-icon-arrowleft" @click="gotoPrevious()"></a>
     </nav>
     <!-- 店招 -->
     <div class="detail-logo">
@@ -52,36 +52,121 @@
               <img src="../img/detail/background2.webp" alt>
             </div>
             <!-- 锚点 -->
-
-            <a-anchor>
-              <a-anchor-link href="#components-anchor-demo-basic" title="Basic demo"/>
-              <a-anchor-link href="#components-anchor-demo-static-anchor" title="Fixed demo"/>
-              <a-anchor-link href="#API" title="API">
-                <a-anchor-link href="#Anchor-Props" title="Anchor Props"/>
-                <a-anchor-link href="#Link-Props" title="Link Props"/>
-              </a-anchor-link>
-            </a-anchor>
           </div>
         </mt-tab-container-item>
         <mt-tab-container-item id="2">
-          <mt-cell v-for="n in 20" :title="'选项 ' + n"/>
+          <div class="pingjia">
+            <div class="pingfen">
+              <div class="pf-left">4.6</div>
+              <div class="pf-center">
+                <span>商家评分</span>
+                <div class="ping-bg">
+                  <!-- 星星 -->
+                  <!-- :style="'width:'+item.rating/5*100+'%'" -->
+                  <div class="pingfen-show"></div>
+                </div>
+              </div>
+              <div class="pf-right">
+                <div class="right-1">
+                  <div>
+                    <span>味道</span>
+                    <p>4.6</p>
+                  </div>
+                  <div>
+                    <span>包装</span>
+                    <p>4.6</p>
+                  </div>
+                </div>
+              </div>
+              <div class="right-2">
+                <span>配送</span>
+                <p>4.7</p>
+              </div>
+            </div>
+            <!-- 评论 -->
+            <div class="pinglun">
+              <div class="pl-header">
+                <div class="header-top">
+                  <mt-button @click="iconColor()" type="primary" size="small">
+                    全部
+                    <span>11</span>
+                  </mt-button>
+                </div>
+                <div class="checkon">
+                  <a-icon theme="twoTone" :twoToneColor="ckColor" type="check-circle"/>只看有内容的评价
+                </div>
+              </div>
+              <!-- 评论内容 -->
+              <div class="pl-content">
+                <div class="pl-item">
+                  <div class="touxiang">
+                    <span></span>
+                    <!-- <img src="http://shadow.elemecdn.com/faas/h5/static/sprite.3ffb5d8.png" alt> -->
+                  </div>
+                  <div class="item-right">
+                    <div class="profile">
+                      <span>老****哥</span>
+                      <span>2019-6-25</span>
+                    </div>
+                    <div class="pingfen-bg">
+                      <!-- 评分 -->
+                      <div class="pingfen-show"></div>
+                    </div>
+                    <div class="ping-img">
+                      <!-- 评论图 -->
+                      <img src="../img/detail/ping-img.webp" alt>
+                    </div>
+                    <div class="ping-tag">
+                      <span class="mui-icon-extra mui-icon-extra-like"></span>
+                      <span>老北京鸡肉卷T</span>
+                      <span>红豆派T</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </mt-tab-container-item>
-        <mt-tab-container-item id="3"></mt-tab-container-item>
+        <mt-tab-container-item id="3">
+          <div class="shangjia">
+            <h4>配送信息</h4>
+            <span>由商家配送提供配送，约30分钟送达，距离2.4km</span>
+            <div>配送费￥9</div>
+          </div>
+          <div class="shangjia">
+            <h4>商家服务</h4>
+            <span class="piao-icon">票</span>
+            <span>由商家配送提供配送，约30分钟送达，距离2.4km</span>
+          </div>
+          <div class="sj-content">
+            <mt-cell title="商家信息" label="肯德基宅急送"></mt-cell>
+            <mt-cell title="品类" value="汉堡薯条,炸鸡炸串"></mt-cell>
+            <mt-cell title="商家电话" value="4009208801" is-link></mt-cell>
+            <mt-cell title="地址" value="四川省成都市成华区经华北路2号"></mt-cell>
+            <mt-cell title="营业时间" value="05:45-04:00"></mt-cell>
+          </div>
+          <div class="sj-bottom">
+            <mt-cell title="商业性质" is-link></mt-cell>
+          </div>
+        </mt-tab-container-item>
       </mt-tab-container>
     </div>
   </div>
 </template>
 
 <script>
+import { Icon } from "ant-design-vue";
 export default {
   name: "Detail",
   data() {
     return {
       selected: "1",
-      isFixed: false
+      isFixed: false,
+      ckColor: "#e8e8e8"
     };
   },
   mounted() {
+    this.$store.commit("gootIsfalse");
     window.addEventListener("scroll", this.handleScroll);
     this.$nextTick(function() {
       // 这里fixedHeaderRoot是吸顶元素的ID
@@ -93,9 +178,18 @@ export default {
     });
   },
   destroyed() {
+    this.$store.commit("gootIstrue");
     window.removeEventListener("scroll", this.handleScroll);
   },
   methods: {
+    gotoPrevious() {
+      this.$router.go(-1);
+    },
+
+    iconColor() {
+      this.ckColor = "#76d572";
+    },
+
     handleScroll() {
       // 得到页面滚动的距离
       let scrollTop =
@@ -115,12 +209,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.detail {
+  background-color: #fff;
+}
 .detali-header {
   background-image: url("../img/detail/background1.webp");
   background-size: cover;
   height: 100px;
   background-position: 0 -12px;
   position: relative;
+  // background-color: #fff;
   .mui-icon-arrowleft {
     position: absolute;
     left: 0;
@@ -141,6 +239,7 @@ export default {
   );
 }
 .detail-logo {
+  background-color: #fff;
   .logo {
     position: absolute;
     top: 37px;
@@ -162,7 +261,7 @@ export default {
   }
 }
 .detail-content {
-  margin-top: 35px;
+  padding-top: 35px;
   h4 {
     font-weight: 600;
     font-size: 1.3rem;
@@ -203,8 +302,16 @@ export default {
   }
 }
 // 选项卡样式bug
-.mint-navbar .mint-tab-item.is-selected {
-  margin-bottom: 0;
+.mint-navbar {
+  .mint-tab-item {
+    color: #000;
+  }
+  .mint-tab-item.is-selected {
+    margin-bottom: 0;
+    color: #000;
+    font-weight: 600;
+    // font-size: 1.3rem !important;
+  }
 }
 .navbar {
   text-align: start;
@@ -217,5 +324,151 @@ export default {
     }
   }
 }
-// 点评
+// 商家
+.shangjia {
+  padding: 20px 10px;
+  background-color: #fff;
+  margin-bottom: 10px;
+  h4 {
+    font-weight: 600;
+  }
+  .piao-icon {
+    color: rgb(153, 153, 153);
+    border: 0.5px solid rgb(153, 153, 153);
+    padding: 1px 5px;
+    font-size: 0.8rem;
+    margin-right: 10px;
+  }
+}
+.mint-tab-container-item {
+  background-color: #f5f5f5;
+}
+
+.sj-content {
+  .mint-cell:first-child {
+    // color: green;
+    font-weight: 600;
+    padding: 10px 0;
+  }
+}
+.sj-bottom {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+//评价
+.pingjia {
+  .pingfen {
+    background-color: #fff;
+    display: flex;
+    padding: 15px;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 10px;
+    .pf-left {
+      color: #ff6000;
+      font-size: 2.2rem;
+    }
+    .pf-right {
+      p {
+        margin: 0;
+      }
+      display: flex;
+      align-items: center;
+      .right-1 {
+        display: flex;
+        font-size: 1rem;
+        border-right: 0.5px solid #aaa;
+        margin-left: 10px;
+        :first-child {
+          margin-right: 15px;
+        }
+        :last-child {
+          margin-right: 5px;
+        }
+      }
+    }
+    .right-2 {
+      p {
+        margin: 0;
+      }
+    }
+  }
+}
+// 评论
+.pinglun {
+  background-color: #fff;
+  padding: 10px;
+  .pl-header {
+    .header-top {
+      padding-bottom: 10px;
+      border-bottom: 0.5px solid #eee;
+      .mint-button {
+        font-size: 0.8rem;
+        height: 27px;
+      }
+    }
+    .checkon {
+      padding: 10px;
+      border-bottom: 0.5px solid #eee;
+    }
+  }
+}
+// .pl-content {
+//   ;
+// }
+.pl-item {
+  display: flex;
+  margin: 10px 0;
+  .item-right {
+    width: 100%;
+    margin-left: 10px;
+    .ping-tag {
+      .mui-icon-extra-like {
+        font-size: 0.9rem;
+        color: #aaa;
+        margin-right: 5px;
+      }
+      :not(:first-child) {
+        background-color: #ebf5ff;
+        margin-right: 5px;
+        font-size: 0.75rem;
+        padding: 5px;
+        border-radius: 3px;
+      }
+    }
+    .pingfen-bg {
+      // display: flex;
+      margin: 5px 0;
+    }
+    .profile {
+      display: flex;
+      justify-content: space-between;
+    }
+    .ping-img {
+      margin: 5px 0;
+      img {
+        width: 150px;
+        height: 150px;
+      }
+    }
+  }
+
+  .touxiang {
+    width: 30px;
+    height: 30px;
+    span {
+      display: block;
+      background: url("../img/detail/profile.png");
+      background-size: 30px;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      //切换头像
+      // background-position: 0px 120.107px;
+      // background-position: 0px 240.213px;
+      //  background-size: 30px;
+    }
+  }
+}
 </style>
