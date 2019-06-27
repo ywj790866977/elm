@@ -3,10 +3,16 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
+// 通用scss
+import "./common/css/index.scss";
+// css重置
+import "./static/css/reset.css";
+
 // axios
 import axios from "axios";
 import VueAxios from "vue-axios";
 Vue.use(VueAxios, axios);
+
 // mui
 import "./mui/css/mui.min.css";
 import "./mui/css/icons-extra.css";
