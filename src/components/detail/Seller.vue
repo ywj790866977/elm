@@ -77,7 +77,21 @@
 export default {
   name: "Seller",
   data() {
-    return {};
+    return {
+      ckColor: "#e8e8e8"
+    };
+  },
+  created() {
+    // this.getData("http://localhost:3000/product/seller");
+  },
+  methods: {
+    // async getData(url, data = null) {
+    //   let res = await this.axios.get(url);
+    //   if (res.data.code === 200) console.log(res);
+    // }
+    iconColor() {
+      this.ckColor = "#76d572";
+    }
   }
 };
 </script>

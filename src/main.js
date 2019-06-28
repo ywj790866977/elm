@@ -3,8 +3,9 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-// 通用scss
-import "./common/css/index.scss";
+//自定义icon
+import "./common/css/icon.css";
+
 // css重置
 import "./static/css/reset.css";
 
@@ -33,7 +34,8 @@ import {
   TabContainer,
   TabContainerItem,
   Header,
-  Cell
+  Cell,
+  Popup
 } from "mint-ui";
 import "mint-ui/lib/style.css"; //轮播需要用的样式,直接引入就行
 
@@ -46,6 +48,7 @@ Vue.component(TabContainer.name, TabContainer);
 Vue.component(TabContainerItem.name, TabContainerItem);
 Vue.component(Header.name, Header);
 Vue.component(Cell.name, Cell);
+Vue.component(Popup.name, Popup);
 
 //配置ajax访问路径
 
