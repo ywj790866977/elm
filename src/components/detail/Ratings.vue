@@ -32,6 +32,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 // 商家
+.ratings {
+  background-color: #f5f5f5;
+}
 .shangjia {
   padding: 20px 10px;
   background-color: #fff;

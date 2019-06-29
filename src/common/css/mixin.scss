@@ -24,11 +24,15 @@
   font-size: 0.6rem;
   padding: 1px 5px;
   margin-right: 5px;
-  @if $type == 1 {
+  @if $type == 0 {
     background-color: rgb(241, 136, 79);
-  } @else if $type == 2 {
+  } @else if $type == 1 {
     background-color: rgb(240, 115, 115);
-  } @else if $type == 3 {
+  } @else if $type == 2 {
     background-color: rgb(112, 188, 70);
+  } @else if $type == 3 {
+    background-color: #26a2ff;
+  } @else if $type == 4 {
+    background-color: #26a2ff;
   }
 }

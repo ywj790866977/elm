@@ -98,6 +98,7 @@ export default {
 <style lang="scss" scoped>
 //评价
 .pingjia {
+  background-color: #f5f5f5;
   .pingfen {
     background-color: #fff;
     display: flex;

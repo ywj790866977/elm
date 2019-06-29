@@ -1,6 +1,6 @@
 <template>
   <div class="goods">
-    <div class="test border-1px">你在说什么?</div>
+    <div class="test border-1px" v-for=" i in 40">{{i}}</div>
   </div>
 </template>
 <script>

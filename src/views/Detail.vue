@@ -1,6 +1,6 @@
 <template>
   <div class="detail">
-    <Header :sellers="sellers"></Header>
+    <Header v-if="isShow" :sellers="sellers"></Header>
     <!-- 选项卡 -->
 
     <div class="navbar">
@@ -39,7 +39,8 @@ export default {
     return {
       selected: "1",
       isFixed: false,
-      sellers: {}
+      sellers: {},
+      isShow: false
     };
   },
   created() {
@@ -48,14 +49,17 @@ export default {
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
-    this.$nextTick(function() {
-      // 这里fixedHeaderRoot是吸顶元素的ID
-      let header = document.getElementById("fixedHeaderRoot");
-      // 这里要得到top的距离和元素自身的高度
-      this.offsetTop = header.offsetTop + 100; //不知道为什么刚好差100
-      this.offsetHeight = header.offsetHeight;
-      // console.log("offsetTop:" + this.offsetTop + "," + this.offsetHeight);
-    });
+    // this.$nextTick(function() {
+    // 这里fixedHeaderRoot是吸顶元素的ID
+    let header = document.getElementById("fixedHeaderRoot");
+    // 这里要得到top的距离和元素自身的高度
+    var that = this;
+    setTimeout(function() {
+      that.offsetTop = header.offsetTop + 100;
+    }, 300);
+    this.offsetHeight = header.offsetHeight;
+    // console.log("offsetTop:" + this.offsetTop + "," + this.offsetHeight);
+    // });
   },
   destroyed() {
     this.$store.commit("gootIstrue");
@@ -64,12 +68,11 @@ export default {
   methods: {
     async getSeller(url) {
       let res = await this.axios.get(url);
-      // this.axios.get(url).then(res => {
       if (res.data.code === 200) {
         console.log(res.data.data);
         this.sellers = res.data.data;
+        this.isShow = true;
       }
-      // });
     },
     handleScroll() {
       // 得到页面滚动的距离
@@ -79,6 +82,7 @@ export default {
         document.body.scrollTop;
       // 判断页面滚动的距离是否大于吸顶元素的位置
       this.headerFixed = scrollTop > this.offsetTop - this.offsetHeight - 50;
+      // console.log("offsetTop:" + this.offsetTop + "," + this.offsetHeight);
       // console.log(this.headerFixed);
       if (this.headerFixed) this.isFixed = true;
       else this.isFixed = false;
