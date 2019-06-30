@@ -1,9 +1,14 @@
 <template>
   <div class="goods">
-    <div class="menu-wrapper">
-      <p v-for="i in 30">{{i}}</p>
+    <div class="goods-header">
+      <img src="../../img/detail/background2.webp" alt>
     </div>
-    <div class="foods-wrapper"></div>
+    <div class="goods-body">
+      <div class="menu-wrapper">
+        <!-- <p v-for="i in 30">{{i}}</p> -->
+      </div>
+      <div class="foods-wrapper"></div>
+    </div>
   </div>
 </template>
 <script>
@@ -18,19 +23,29 @@ export default {
 @import "../../common/css/index.scss";
 
 .goods {
-  // position: absolute;
-  display: flex;
-  // overflow: hidden;
   width: 100%;
-  // top: 275px;
-  // bottom: 46px;
-  .menu-wrapper {
-    flex: 0 0 80px;
-    width: 80px;
-    background: #f3f5f7;
+  // display: flex;
+
+  .goods-header {
+    // flex: 1;
+    img {
+      width: 100%;
+      // padding: 5px 10px;
+      // margin: 5px 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+      border-radius: 5px;
+    }
   }
-  .foods-wrapper {
-    flex: 1;
+  .goods-body {
+    .menu-wrapper {
+      flex: 0 0 80px;
+      width: 80px;
+      background: #f3f5f7;
+    }
+    .foods-wrapper {
+      flex: 1;
+    }
   }
 }
 </style>

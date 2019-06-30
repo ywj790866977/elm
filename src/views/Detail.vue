@@ -49,17 +49,17 @@ export default {
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
-    // this.$nextTick(function() {
-    // 这里fixedHeaderRoot是吸顶元素的ID
-    let header = document.getElementById("fixedHeaderRoot");
-    // 这里要得到top的距离和元素自身的高度
-    var that = this;
-    setTimeout(function() {
-      that.offsetTop = header.offsetTop + 100;
-    }, 300);
-    this.offsetHeight = header.offsetHeight;
-    // console.log("offsetTop:" + this.offsetTop + "," + this.offsetHeight);
-    // });
+    this.$nextTick(() => {
+      // 这里fixedHeaderRoot是吸顶元素的ID
+      let header = document.getElementById("fixedHeaderRoot");
+      // 这里要得到top的距离和元素自身的高度
+      var that = this;
+      setTimeout(function() {
+        that.offsetTop = header.offsetTop + 100;
+      }, 300);
+      this.offsetHeight = header.offsetHeight;
+      // console.log("offsetTop:" + this.offsetTop + "," + this.offsetHeight);
+    });
   },
   destroyed() {
     this.$store.commit("gootIstrue");
@@ -75,7 +75,7 @@ export default {
       }
     },
     handleScroll() {
-      // 得到页面滚动的距离
+      // 得到页面滚动的距离,兼容三个浏览器写法
       let scrollTop =
         window.pageYOffset ||
         document.documentElement.scrollTop ||
