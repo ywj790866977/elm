@@ -32,7 +32,7 @@ import Seller from "../components/detail/Seller";
 import Ratings from "../components/detail/Ratings";
 import Goods from "../components/detail/Goods";
 import Header from "../components/detail/Header";
-import Good from "../components/detail/Goods2";
+
 
 export default {
   name: "Detail",
@@ -94,8 +94,7 @@ export default {
     Seller,
     Ratings,
     Goods,
-    Header,
-    Good
+    Header
   },
   props: []
 };
