@@ -32,6 +32,7 @@ import Seller from "../components/detail/Seller";
 import Ratings from "../components/detail/Ratings";
 import Goods from "../components/detail/Goods";
 import Header from "../components/detail/Header";
+import Good from "../components/detail/Goods2";
 
 export default {
   name: "Detail",
@@ -69,7 +70,7 @@ export default {
     async getSeller(url) {
       let res = await this.axios.get(url);
       if (res.data.code === 200) {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         this.sellers = res.data.data;
         this.isShow = true;
       }
@@ -86,13 +87,15 @@ export default {
       // console.log(this.headerFixed);
       if (this.headerFixed) this.isFixed = true;
       else this.isFixed = false;
+      // console.log(this.isFixed);
     }
   },
   components: {
     Seller,
     Ratings,
     Goods,
-    Header
+    Header,
+    Good
   },
   props: []
 };
@@ -102,6 +105,10 @@ export default {
 .detail {
   background-color: #fff;
 }
+
+// .goods-a {
+//   height: 200px;
+// }
 
 // 选项卡样式bug
 .mint-navbar {
