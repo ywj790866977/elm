@@ -4,8 +4,8 @@
       <img src="../../img/detail/background2.webp" alt>
     </div>
     <div class="goods-body">
-      <div class="menu-wrapper" id="menuWrapper">
-        <ul>
+      <div class="menu-wrapper"  ref="wrapper" >
+        <ul  class="content">
           <li v-for="item in goods" class="menu-item">
             <img
               v-show="item.type === 2"
@@ -21,7 +21,7 @@
           </li>
         </ul>
       </div>
-      <div class="foods-wrapper">
+      <div class="foods-wrapper" >
         <ul>
           <li v-for="item in goods" class="food-list">
             <h2 class="title">{{item.name}}</h2>
@@ -51,47 +51,57 @@
   </div>
 </template>
 <script>
-// import BScroll from "better-scroll";
+import BScroll from '@better-scroll/core'
+
 export default {
   name: "Goods",
   data() {
     return {
-      goods: []
+      goods: [],
+      // isFixed:false
     };
   },
   created() {
     this.getGoods("http://localhost:3000/product/goods");
-    window.addEventListener("scroll", this.handleScroll);
+    // window.addEventListener("scroll", this.handleScroll);
   },
   mounted() {},
   destroyed() {
-    window.removeEventListener("scroll", this.handleScroll);
+    // window.removeEventListener("scroll", this.handleScroll);
   },
   methods: {
     async getGoods(url) {
       let res = await this.axios.get(url);
       if (res.data.code === 200) {
         this.goods = res.data.data;
-        let wrapper = document.getElementById("menuWrapper");
-        // 这里要得到top的距离和元素自身的高度
-        this.offsetTop = wrapper.offsetTop;
-        this.offsetHeight = wrapper.offsetHeight;
+        this.$nextTick(()=>{
+          let scroll = new BScroll(this.$refs.wrapper,{})
+          console.log(scroll)
+        })
+
+
+        // let wrapper = document.querySelector()
+        // console.log(wrapper)
+        // let wrapper = document.getElementById("menuWrapper");
+        // // 这里要得到top的距离和元素自身的高度
+        // this.offsetTop = wrapper.offsetTop +190;
+        // this.offsetHeight = wrapper.offsetHeight;
       }
     },
-    handleScroll() {
-      // 得到页面滚动的距离,兼容三个浏览器写法
-      let scrollTop =
-        window.pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop;
-      // 判断页面滚动的距离是否大于吸顶元素的位置
-      this.wrapperFixed = scrollTop > this.offsetTop - this.offsetHeight;
-      console.log("offsetTop:" + this.offsetTop + "," + this.offsetHeight);
-      // console.log(this.wrapperFixed);
-      // if (this.headerFixed) this.isFixed = true;
-      // else this.isFixed = false;
-      // console.log(this.isFixed);
-    }
+    // handleScroll() {
+    //   // 得到页面滚动的距离,兼容三个浏览器写法
+    //   let scrollTop =
+    //     window.pageYOffset ||
+    //     document.documentElement.scrollTop ||
+    //     document.body.scrollTop;
+    //   // 判断页面滚动的距离是否大于吸顶元素的位置
+    //   this.wrapperFixed = scrollTop > this.offsetTop - this.offsetHeight;
+    //   // console.log("offsetTop:" + this.offsetTop + "," + this.offsetHeight);
+    //   // console.log(this.wrapperFixed);
+    //   if (this.wrapperFixed) this.isFixed = true;
+    //   else this.isFixed = false;
+    //   console.log(this.isFixed);
+    // }
   },
   props: [""]
 };
@@ -99,6 +109,11 @@ export default {
 <style lang="scss" scoped>
 // @import "../../common/css/index.scss";
 
+// .isfiexd{
+//   position:fixed;
+//   top:0;
+//   left:0;
+// }
 .goods {
   .goods-header {
     margin: 0 10px;
